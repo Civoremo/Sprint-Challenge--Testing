@@ -14,9 +14,13 @@ server.get("/games/:id", async (req, res) => {
     const gameID = req.params.id;
 
     if (!isNaN(gameID)) {
-        const genre = await games.getById(gameID);
+        const result = await games.getById(gameID);
 
-        res.status(200).json(genre);
+        if (result.length !== 0) {
+            res.status(200).json(result);
+        } else {
+            res.status(404).json("Game with that ID could not be found");
+        }
     } else {
         res.status(500).json("Could not find game with ID");
     }

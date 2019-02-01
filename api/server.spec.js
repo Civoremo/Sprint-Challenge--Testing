@@ -41,6 +41,12 @@ describe("server.js", () => {
 
             expect(response.status).toBe(500);
         });
+
+        it("should respond with status code 404", async () => {
+            const response = await request(server).get("/games/1500");
+
+            expect(response.status).toBe(404);
+        });
     });
 
     describe("POST /games endpoint", () => {
