@@ -39,9 +39,34 @@ describe("server.js", () => {
 
     describe("POST /games endpoint", () => {
         it("should return status code 200 on successful insert", async () => {
-            const response = await request(server).post("/games");
+            const body = {
+                title: "Music Game",
+                genre: "Wannabe Musicians",
+                releaseYear: "2005",
+            };
+            const response = await request(server)
+                .post("/games")
+                .send(body);
 
             expect(response.status).toBe(200);
+        });
+
+        it("should respond with status code 500 if insert did not work", async () => {
+            const body = { title: "Fake Game" };
+            const response = await request(server)
+                .post("/games")
+                .send(body);
+
+            expect(response.status).toBe(500);
+        });
+
+        it("should respond with title of new game inserted", async () => {
+            const body = { title: "Fav Game", genre: "MMO", releaseYear: 2004 };
+            const response = await request(server)
+                .post("/games")
+                .send(body);
+
+            expect(response.body.title).toEqual(body.title);
         });
     });
 });

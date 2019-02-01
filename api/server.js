@@ -23,14 +23,14 @@ server.get("/games/:id", async (req, res) => {
 });
 
 server.post("/games", async (req, res) => {
-    const game = {
-        title: "Music Game",
-        genre: "Wannabe Musicians",
-        releaseYear: "2005",
-    };
-    const id = await games.insert(game);
-
-    res.status(200).json(id);
+    const game = req.body;
+    if (game.title && game.genre) {
+        const [id] = await games.insert(game);
+        const [created] = await games.getById(id);
+        res.status(200).json(created);
+    } else {
+        res.status(500).json("insert failed");
+    }
 });
 
 module.exports = server;
