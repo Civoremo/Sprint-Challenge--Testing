@@ -15,4 +15,25 @@ describe("server.js", () => {
             expect(response.type).toMatch(/json/i);
         });
     });
+
+    describe("GET /games/:id endpoint", () => {
+        it("should respond with status code 200", async () => {
+            let response = await request(server).get("/games/1");
+
+            expect(response.status).toBe(200);
+        });
+
+        it("should respond with genre of object id: 1 to be action", async () => {
+            const response = await request(server).get("/games/1");
+            const [{ genre }] = response.body;
+
+            expect(genre).toEqual("action");
+        });
+
+        it("should respond with error code 500 if id is not a number", async () => {
+            const response = await request(server).get("/games/b");
+
+            expect(response.status).toBe(500);
+        });
+    });
 });
