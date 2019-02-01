@@ -14,6 +14,12 @@ describe("server.js", () => {
 
             expect(response.type).toMatch(/json/i);
         });
+
+        it("should check that response is not undefined", async () => {
+            let response = await request(server).get("/games");
+
+            expect(response).not.toEqual(undefined);
+        });
     });
 
     describe("GET /games/:id endpoint", () => {
@@ -57,7 +63,7 @@ describe("server.js", () => {
                 .post("/games")
                 .send(body);
 
-            expect(response.status).toBe(500);
+            expect(response.status).toBe(422);
         });
 
         it("should respond with title of new game inserted", async () => {

@@ -29,7 +29,7 @@ server.post("/games", async (req, res) => {
         const [created] = await games.getById(id);
         res.status(200).json(created);
     } else {
-        res.status(500).json("insert failed");
+        res.status(422).json("insert failed");
     }
 });
 
