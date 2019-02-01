@@ -36,4 +36,12 @@ describe("server.js", () => {
             expect(response.status).toBe(500);
         });
     });
+
+    describe("POST /games endpoint", () => {
+        it("should return status code 200 on successful insert", async () => {
+            const response = await request(server).post("/games");
+
+            expect(response.status).toBe(200);
+        });
+    });
 });

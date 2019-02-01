@@ -8,7 +8,7 @@ module.exports = {
 };
 
 async function insert(game) {
-    return db("games").insert(game);
+    return await db("games").insert(game);
 }
 
 async function getAll() {

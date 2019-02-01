@@ -22,4 +22,15 @@ server.get("/games/:id", async (req, res) => {
     }
 });
 
+server.post("/games", async (req, res) => {
+    const game = {
+        title: "Music Game",
+        genre: "Wannabe Musicians",
+        releaseYear: "2005",
+    };
+    const id = await games.insert(game);
+
+    res.status(200).json(id);
+});
+
 module.exports = server;
