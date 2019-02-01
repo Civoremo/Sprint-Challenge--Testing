@@ -81,4 +81,24 @@ describe("server.js", () => {
             expect(response.body.title).toEqual(body.title);
         });
     });
+
+    describe("DELETE /games/:id endpoint", () => {
+        // it("should respond with status code 200 if successful", async () => {
+        //     const response = await request(server).delete("/games/55");
+
+        //     expect(response.status).toBe(200);
+        // });
+
+        it("should respond with status code 404 if id does not exist", async () => {
+            const response = await request(server).delete("/games/50");
+
+            expect(response.status).toBe(404);
+        });
+
+        it("should respond with status code 500 if id not a number", async () => {
+            const response = await request(server).delete("/games/b");
+
+            expect(response.status).toBe(500);
+        });
+    });
 });

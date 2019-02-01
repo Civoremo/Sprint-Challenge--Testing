@@ -37,4 +37,22 @@ server.post("/games", async (req, res) => {
     }
 });
 
+server.delete("/games/:id", async (req, res) => {
+    const gameId = req.params.id;
+
+    if (!isNaN(gameId)) {
+        try {
+            const [id] = await games.remove(gameId);
+
+            res.status(200).json(id);
+        } catch (error) {
+            res.status(404).json("Game by that ID could not be found");
+        }
+    } else {
+        res.status(500).json(
+            "Failed to delete, check id to make sure it is a number"
+        );
+    }
+});
+
 module.exports = server;

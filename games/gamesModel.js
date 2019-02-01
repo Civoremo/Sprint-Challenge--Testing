@@ -20,5 +20,7 @@ async function getById(id) {
 }
 
 async function remove(id) {
-    return null;
+    return db("games")
+        .where({ id })
+        .del();
 }
